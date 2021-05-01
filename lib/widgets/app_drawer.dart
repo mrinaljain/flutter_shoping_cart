@@ -13,6 +13,19 @@ class AppDrawer extends StatelessWidget {
           AppBar(
             title: Text('Hello Friends !'),
             automaticallyImplyLeading: false,
+            actions: [
+              Consumer(builder: (context, ThemeModel themeNotifier, child) {
+                return IconButton(
+                    icon: Icon(themeNotifier.isDark
+                        ? Icons.nightlight_round
+                        : Icons.wb_sunny),
+                    onPressed: () {
+                      themeNotifier.isDark
+                          ? themeNotifier.isDark = false
+                          : themeNotifier.isDark = true;
+                    });
+              }),
+            ],
           ),
           Divider(),
           ListTile(
@@ -40,22 +53,6 @@ class AppDrawer extends StatelessWidget {
                   .pushReplacementNamed(UserProductsScreen.routeName);
             },
           ),
-          Divider(),
-          Consumer(builder: (context, ThemeModel themeNotifier, child) {
-            return ListTile(
-              leading: Icon(Icons.wb_sunny),
-              title: Text(themeNotifier.isDark ? "Dark Mode" : "Light Mode"),
-              trailing: IconButton(
-                  icon: Icon(themeNotifier.isDark
-                      ? Icons.nightlight_round
-                      : Icons.wb_sunny),
-                  onPressed: () {
-                    themeNotifier.isDark
-                        ? themeNotifier.isDark = false
-                        : themeNotifier.isDark = true;
-                  }),
-            );
-          })
         ],
       ),
     );
