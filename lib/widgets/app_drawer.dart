@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:my_shop/models/theme_model.dart';
 import 'package:my_shop/screens/orders_screen.dart';
 import 'package:my_shop/screens/user_products_screen.dart';
+import 'package:provider/provider.dart';
 
 class AppDrawer extends StatelessWidget {
   @override
@@ -37,7 +39,23 @@ class AppDrawer extends StatelessWidget {
               Navigator.of(context)
                   .pushReplacementNamed(UserProductsScreen.routeName);
             },
-          )
+          ),
+          Divider(),
+          Consumer(builder: (context, ThemeModel themeNotifier, child) {
+            return ListTile(
+              leading: Icon(Icons.wb_sunny),
+              title: Text(themeNotifier.isDark ? "Dark Mode" : "Light Mode"),
+              trailing: IconButton(
+                  icon: Icon(themeNotifier.isDark
+                      ? Icons.nightlight_round
+                      : Icons.wb_sunny),
+                  onPressed: () {
+                    themeNotifier.isDark
+                        ? themeNotifier.isDark = false
+                        : themeNotifier.isDark = true;
+                  }),
+            );
+          })
         ],
       ),
     );
